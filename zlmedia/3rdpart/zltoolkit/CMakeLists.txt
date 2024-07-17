@@ -59,14 +59,12 @@ endif()
 
 #安装目录
 #Installation directory
-if(WIN32)
-    set(INSTALL_PATH_LIB $ENV{HOME}/${PROJECT_NAME}/lib)
-    set(INSTALL_PATH_INCLUDE $ENV{HOME}/${PROJECT_NAME}/include)
-else()
-    set(INSTALL_PATH_LIB ${CMAKE_MODULE_PATH}/lib)
-    set(INSTALL_PATH_INCLUDE ${CMAKE_MODULE_PATH}/include)
-endif()
 
+set(INSTALL_PATH_LIB ${3RDPART_SDK}/lib)
+set(INSTALL_PATH_INCLUDE ${3RDPART_SDK}/include)
+
+message(STATUS "INSTALL_PATH_LIB:" ${INSTALL_PATH_LIB} )
+message(STATUS "INSTALL_PATH_INCLUDE:" ${INSTALL_PATH_INCLUDE} )
 
 foreach(SUB_DIR ${SUB_DIR_LIST})
     #遍历源文件
@@ -74,7 +72,7 @@ foreach(SUB_DIR ${SUB_DIR_LIST})
     aux_source_directory(src/${SUB_DIR} SRC_LIST)
     #安装头文件至系统目录
     #Install header file to system directory
-    #install(DIRECTORY src/${SUB_DIR} DESTINATION ${INSTALL_PATH_INCLUDE} FILES_MATCHING PATTERN "*.h")
+    install(DIRECTORY src/${SUB_DIR} DESTINATION ${INSTALL_PATH_INCLUDE} FILES_MATCHING PATTERN "*.h")
 endforeach()
 
 #非苹果平台移除.mm类型的文件

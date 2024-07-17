@@ -1,6 +1,20 @@
 #include <iostream>
+#include <memory>
+#include "Util/logger.h"
+using namespace std;
+using namespace toolkit;
 
-int main() {
-    std::cout << "Hello, World!" << std::endl;
+
+int start_main(int argc, char *argv[])
+{
+    // 设置日志
+    Logger::Instance().add(std::make_shared<ConsoleChannel>("ConsoleChannel", LInfo));
     return 0;
 }
+
+#ifndef DISABLE_MAIN
+int main(int argc, char *argv[])
+{
+    return start_main(argc, argv);
+}
+#endif // DISABLE_MAIN
