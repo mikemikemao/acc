@@ -304,9 +304,7 @@ inline void EventPoller::onPipeEvent(bool flush) {
 
     _list_swap.for_each([&](const Task::Ptr &task) {
         try {
-            DebugL << "do task" ;
             (*task)();
-            DebugL << "do task done" ;
         } catch (ExitException &) {
             _exit_flag = true;
         } catch (std::exception &ex) {
@@ -466,7 +464,6 @@ void EventPoller::runLoop(bool blocked, bool ref_self) {
 
             if (ret <= 0) {
                 //超时或被打断
-                DebugL << "zl_select timeout";
                 continue;
             }
 
@@ -518,9 +515,7 @@ uint64_t EventPoller::flushDelayTask(uint64_t now_time) {
     for (auto it = task_copy.begin(); it != task_copy.end() && it->first <= now_time; it = task_copy.erase(it)) {
         //已到期的任务
         try {
-            DebugL << "do delay";
             auto next_delay = (*(it->second))();
-            DebugL << "do delay done";
             if (next_delay) {
                 //可重复任务,更新时间截止线
                 _delay_task_map.emplace(next_delay + now_time, std::move(it->second));
