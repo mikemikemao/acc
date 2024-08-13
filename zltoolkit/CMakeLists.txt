@@ -1,5 +1,5 @@
-﻿project(ZLToolKit)
-cmake_minimum_required(VERSION 3.1.3)
+﻿cmake_minimum_required(VERSION 3.1.3)
+project(ZLToolKit)
 
 include(CheckStructHasMember)
 include(CheckSymbolExists)
