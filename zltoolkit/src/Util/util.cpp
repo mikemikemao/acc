@@ -357,7 +357,10 @@ static atomic<uint64_t> s_currentMicrosecond(0);
 static atomic<uint64_t> s_currentMillisecond(0);
 static atomic<uint64_t> s_currentMicrosecond_system(getCurrentMicrosecondOrigin());
 static atomic<uint64_t> s_currentMillisecond_system(getCurrentMicrosecondOrigin() / 1000);
-
+/**
+ * @FunctionName 后台线程 记录当前时间和运行时间
+ * TODO
+ */
 static inline bool initMillisecondThread() {
     static std::thread s_thread([]() {
         setThreadName("stamp thread");
@@ -400,6 +403,11 @@ uint64_t getCurrentMillisecond(bool system_time) {
     return s_currentMillisecond.load(memory_order_acquire);
 }
 
+/**
+ * @FunctionName 获取当前时间还是 系统运行时间
+ * 由system_time  决定是由什么类型 默认为 false
+ * TODO
+ */
 uint64_t getCurrentMicrosecond(bool system_time) {
     static bool flag = initMillisecondThread();
     if (system_time) {

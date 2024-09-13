@@ -17,13 +17,22 @@
 using namespace std;
 
 namespace toolkit {
-
+/**
+ * @FunctionName 构造函数 获取当前系统时间
+ * @param max_size 统计样本数量 只是简单赋值
+ * @param max_usec 统计时间窗口,亦即最近{max_usec}的cpu负载率 只是简单赋值
+ * TODO
+ */
 ThreadLoadCounter::ThreadLoadCounter(uint64_t max_size, uint64_t max_usec) {
     _last_sleep_time = _last_wake_time = getCurrentMicrosecond();
     _max_size = max_size;
     _max_usec = max_usec;
 }
 
+/**
+ * @FunctionName 记录开始startSleep和上次sleepWakeUp的时间差
+ * TODO
+ */
 void ThreadLoadCounter::startSleep() {
     lock_guard<mutex> lck(_mtx);
     _sleeping = true;
@@ -35,7 +44,10 @@ void ThreadLoadCounter::startSleep() {
         _time_list.pop_front();
     }
 }
-
+/**
+* @FunctionName 记录开始startSleep和上次sleepWakeUp的时间差
+* TODO
+*/
 void ThreadLoadCounter::sleepWakeUp() {
     lock_guard<mutex> lck(_mtx);
     _sleeping = false;

@@ -66,7 +66,7 @@ private:
     uint64_t _max_size;
     uint64_t _max_usec;
     std::mutex _mtx;
-    List<TimeRecord> _time_list;
+    List<TimeRecord> _time_list;//TimeRecord 记录当前时间
 };
 
 class TaskCancelable : public noncopyable {
