@@ -59,7 +59,10 @@ void ThreadLoadCounter::sleepWakeUp() {
         _time_list.pop_front();
     }
 }
-
+/**
+* @FunctionName 记录总体工作时间和总体时间 计算占比
+* TODO
+*/
 int ThreadLoadCounter::load() {
     lock_guard<mutex> lck(_mtx);
     uint64_t totalSleepTime = 0;
@@ -104,6 +107,7 @@ Task::Ptr TaskExecutorInterface::async_first(TaskIn task, bool may_sync) {
 void TaskExecutorInterface::sync(const TaskIn &task) {
     semaphore sem;
     auto ret = async([&]() {
+        //不明白为什么要信号量 为了确保 程序执行完成？？？
         onceToken token(nullptr, [&]() {
             //通过RAII原理防止抛异常导致不执行这句代码
             sem.post();
@@ -134,7 +138,11 @@ void TaskExecutorInterface::sync_first(const TaskIn &task) {
 TaskExecutor::TaskExecutor(uint64_t max_size, uint64_t max_usec) : ThreadLoadCounter(max_size, max_usec) {}
 
 //////////////////////////////////////////////////////////////////
-
+/**
+ * @FunctionName 获取TaskExecutor
+ * 找到空闲的线程  主要依靠线程的占空比
+ * TODO
+ */
 TaskExecutor::Ptr TaskExecutorGetterImp::getExecutor() {
     auto thread_pos = _thread_pos;
     if (thread_pos >= _threads.size()) {
@@ -164,7 +172,11 @@ TaskExecutor::Ptr TaskExecutorGetterImp::getExecutor() {
     _thread_pos = thread_pos;
     return executor_min_load;
 }
-
+/**
+ * @FunctionName getExecutorLoad
+ * 获取各个线程的的占空比
+ * TODO
+ */
 vector<int> TaskExecutorGetterImp::getExecutorLoad() {
     vector<int> vec(_threads.size());
     int i = 0;
@@ -173,7 +185,11 @@ vector<int> TaskExecutorGetterImp::getExecutorLoad() {
     }
     return vec;
 }
-
+/**
+ * @FunctionName getExecutorDelay
+ * 获取执行器的耗时 不知为什么要设置这个函数
+ * TODO
+ */
 void TaskExecutorGetterImp::getExecutorDelay(const function<void(const vector<int> &)> &callback) {
     std::shared_ptr<vector<int> > delay_vec = std::make_shared<vector<int>>(_threads.size());
     shared_ptr<void> finished(nullptr, [callback, delay_vec](void *) {
@@ -189,7 +205,11 @@ void TaskExecutorGetterImp::getExecutorDelay(const function<void(const vector<in
         ++index;
     }
 }
-
+/**
+ * @FunctionName for_each
+ * 获取每隔执行器
+ * TODO
+ */
 void TaskExecutorGetterImp::for_each(const function<void(const TaskExecutor::Ptr &)> &cb) {
     for (auto &th : _threads) {
         cb(th);
@@ -199,7 +219,12 @@ void TaskExecutorGetterImp::for_each(const function<void(const TaskExecutor::Ptr
 size_t TaskExecutorGetterImp::getExecutorSize() const {
     return _threads.size();
 }
-
+/**
+ * @FunctionName addPoller
+ * 申请新的EventPoller对象 相当于一个任务 放在 vector最后面
+ * 并开始执行申请新的EventPoller
+ * TODO
+ */
 size_t TaskExecutorGetterImp::addPoller(const string &name, size_t size, int priority, bool register_thread, bool enable_cpu_affinity) {
     auto cpus = thread::hardware_concurrency();
     size = size > 0 ? size : cpus;
