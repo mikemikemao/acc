@@ -2,23 +2,31 @@ cmake_minimum_required(VERSION 3.1.3)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 project(zlmedia LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 11)
-###最后在呈现形式
-##//Default buffer size for socket
-##SOCKET_DEFAULT_BUF_SIZE:STRING=262144
-set(SOCKET_DEFAULT_BUF_SIZE 262144 CACHE STRING "Default buffer size for socket" FORCE)
-message("The default buffer size is: ${SOCKET_DEFAULT_BUF_SIZE}")
 
+###设置编译类型
 if("${CMAKE_BUILD_TYPE}" STREQUAL "")
     set(CMAKE_BUILD_TYPE "Debug")
 endif()
 message(STATUS "编译类型: ${CMAKE_BUILD_TYPE}")
 
 # 方便排查编译问题, 需要 FORCE CACHE, 否则需要命令行设置才生效
+###########################
+# TODO: 测试未发现问题 可能没遇到错误
+###########################
 # To facilitate the troubleshooting of compilation problems, you need to FORCE CACHE, otherwise you need to set it on the command line to take effect
 set(CMAKE_VERBOSE_MAKEFILE ON CACHE INTERNAL "" FORCE)
 
+###最后在呈现形式 相当于设置了一个宏
+##//Default buffer size for socket
+##SOCKET_DEFAULT_BUF_SIZE:STRING=262144
+set(SOCKET_DEFAULT_BUF_SIZE 262144 CACHE STRING "Default buffer size for socket" FORCE)
+message("The default buffer size is: ${SOCKET_DEFAULT_BUF_SIZE}")
+
 # TODO: include 当前目录会导致 server 编译出错, 待排除
-#set(CMAKE_INCLUDE_CURRENT_DIR OFF)
+###########################
+# TODO: 未测试
+###########################
+set(CMAKE_INCLUDE_CURRENT_DIR OFF)
 
 # 安装路径
 # Install path
@@ -103,5 +111,6 @@ function(update_cached_list name)
     list(REMOVE_DUPLICATES _tmp_list)
     update_cached(${name} "${_tmp_list}")
 endfunction()
+
 
 add_executable(zlmedia main.cpp)
