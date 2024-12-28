@@ -30,7 +30,7 @@ class BinarySplitter : public ISplitter{
 
 class TxtSplitter: public ISplitter{
     void split() override {
-        std::cout << "BinarySplitter" << std::endl;
+        std::cout << "TxtSplitter" << std::endl;
     }
 };
 
@@ -54,8 +54,9 @@ class FactoryMethod
 private:
     SplitterFactory*  factory;//工厂
 public:
-    setFacory(SplitterFactory*  factory){
+    int setFacory(SplitterFactory*  factory){
         this->factory=factory;
+        return 0;
     }
     void test(){
         ISplitter * splitter=factory->CreateSplitter(); //多态new
