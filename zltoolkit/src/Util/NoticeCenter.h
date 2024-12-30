@@ -25,7 +25,7 @@ namespace toolkit {
 
 class EventDispatcher {
 public:
-    friend class NoticeCenter;
+    friend class NoticeCenter;//NoticeCenter为业务主体
     using Ptr = std::shared_ptr<EventDispatcher>;
 
     ~EventDispatcher() = default;
