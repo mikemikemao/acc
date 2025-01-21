@@ -5,10 +5,6 @@
 #ifndef STATE_H
 #define STATE_H
 #include <iostream>
-#include <iostream>
-
-#include <iostream>
-
 using namespace std;
 
 class Worker;
