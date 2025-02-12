@@ -68,4 +68,6 @@ endif()
 #测试程序
 #Test program
 add_subdirectory(tests)
+add_subdirectory(testsnewke)
+
 
