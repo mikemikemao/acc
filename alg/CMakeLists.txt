@@ -69,5 +69,6 @@ endif()
 #Test program
 add_subdirectory(tests)
 add_subdirectory(testsnewke)
+add_subdirectory(testsLeetcode)
 
 
