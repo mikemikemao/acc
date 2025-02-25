@@ -1,4 +1,13 @@
-﻿execute_process(COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/ssl.p12 ${EXECUTABLE_OUTPUT_PATH}/)
+﻿
+include_directories(
+        ${CMAKE_CURRENT_SOURCE_DIR}/..
+        ${CMAKE_CURRENT_SOURCE_DIR}/../graph
+)
+
+file(GLOB src-files
+        ${CMAKE_CURRENT_SOURCE_DIR}/../*.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../graph/*.cpp
+)
 
 aux_source_directory(. TEST_SRC_LIST)
 foreach(TEST_SRC ${TEST_SRC_LIST})
