@@ -5,10 +5,9 @@
 #include "arrayQueue.h"
 
 using namespace std;
-int main(void)
-{
-    arrayQueue<int> q(4);
 
+int test_arrayQueue(void) {
+    arrayQueue<int> q(4);
     // add a few elements
     q.push(1);
     cout << "Queue rear is " << q.back() << endl;
@@ -71,6 +70,12 @@ int main(void)
         r.pop();
         cout << "Popped front element" << endl;
     }
+    return 0;
+}
 
+
+int main()
+{
+    test_arrayQueue();
     return 0;
 }
