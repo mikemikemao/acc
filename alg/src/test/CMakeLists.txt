@@ -2,11 +2,13 @@
 include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/..
         ${CMAKE_CURRENT_SOURCE_DIR}/../graph
+        ${CMAKE_CURRENT_SOURCE_DIR}/../queue
 )
 
 file(GLOB src-files
         ${CMAKE_CURRENT_SOURCE_DIR}/../*.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../graph/*.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../queue/*.cpp
 )
 
 aux_source_directory(. TEST_SRC_LIST)

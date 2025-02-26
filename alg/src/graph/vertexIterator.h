@@ -1,19 +1,18 @@
-//
-// Created by maochaoqun on 2025/2/25.
-//
 
-#ifndef VERTEXITERATOR_H
-#define VERTEXITERATOR_H
+// abstract class for graph vertex iterator
+
+#ifndef vertexIterator_
+#define vertexIterator_
+
 
 using namespace std;
 
 template<class T>
-class vertexIterator
+class vertexIterator 
 {
-public:
-    virtual ~vertexIterator() {}
-    virtual int next() = 0;
-    virtual int next(T&) = 0;
+   public:
+      virtual ~vertexIterator() {}
+      virtual int next() = 0;
+      virtual int next(T&) = 0;
 };
-
-#endif //VERTEXITERATOR_H
+#endif

@@ -1,16 +1,18 @@
-//
-// Created by maochaoqun on 2025/2/25.
-//
+// abstract class for graph edges
 
-#ifndef EDGE_H
-#define EDGE_H
-template<class T>
-class Edge{
-public:
-    virtual ~Edge() {};
-    virtual int vertex1() const = 0;
-    virtual int vertex2() const = 0;
-    virtual T weight() const = 0;
+#ifndef edge_
+#define edge_
+
+using namespace std;
+
+template <class T>
+class edge
+{
+   public:
+      virtual ~edge() {};
+      virtual int vertex1() const = 0;
+      virtual int vertex2() const = 0;
+      virtual T weight() const = 0;
 };
-
-#endif //EDGE_H
+      
+#endif
