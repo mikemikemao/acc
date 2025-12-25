@@ -31,6 +31,12 @@ public:
      * @param event 事件类型，例如 Event_Read | Event_Write
      */
     virtual int modifyEvent(int fd, int event) = 0;
+    /**
+     * 执行事件轮询
+     * @param blocked 是否用执行该接口的线程执行轮询
+     * @param ref_self 是记录本对象到thread local变量
+     */
+    virtual int runLoop(bool blocked,bool ref_self) = 0;
 };
 
 
